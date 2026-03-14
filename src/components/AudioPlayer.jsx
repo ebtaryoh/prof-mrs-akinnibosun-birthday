@@ -13,11 +13,18 @@ export default function AudioPlayer() {
   const toggle = () => {
     if (!ref.current) return;
     
+    // Prime the element on first play if needed for iOS
+    if (ref.current.paused && ref.current.readyState === 0) {
+      ref.current.load();
+    }
+
     if (playing) {
       ref.current.pause();
       setPlaying(false);
     } else {
-      // iOS Safari often requires play() to be called more directly or handled as a promise
+      // Ensure volume is set right before play
+      ref.current.volume = 0.45;
+      
       const playPromise = ref.current.play();
       if (playPromise !== undefined) {
         playPromise
@@ -36,14 +43,15 @@ export default function AudioPlayer() {
     <div className="fixed bottom-5 right-5 z-50">
       <audio 
         ref={ref} 
-        src={birthdaySong} 
         loop 
         preload="auto"
         playsInline
-        webkit-playsinline="true"
+        webkitPlaysInline={true}
         onPause={() => setPlaying(false)} 
         onPlay={() => setPlaying(true)} 
-      />
+      >
+        <source src={birthdaySong} type="audio/mpeg" />
+      </audio>
 
       {/* Pill capsule — exactly like reference site */}
       <div
