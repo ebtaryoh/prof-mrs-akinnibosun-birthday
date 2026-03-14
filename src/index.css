@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens (Tailwind v4 @theme) ─── */
+@theme {
+  --color-cream: #FDFBF7;
+  --color-cream-dark: #F5EDE0;
+  --color-gold: #B8860B;
+  --color-gold-light: #E8D5A3;
+  --color-gold-muted: #C8A24E;
+  --color-sage: #8FA89D;
+  --color-sage-light: #D4E0DB;
+  --color-ink: #2d2d2d;
+  --color-ink-light: #6b6b6b;
+
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --animate-fade-up: fade-up 0.8s ease forwards;
+  --animate-fade-in: fade-in 1s ease forwards;
+  --animate-shimmer: shimmer 2s ease-in-out infinite;
+  --animate-float: float 3s ease-in-out infinite;
+}
+
+/* ─── Base Styles ─── */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    background-color: #FDFBF7;
+    color: #2d2d2d;
+    font-family: "Inter", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ─── Utility Classes ─── */
+@utility scrollbar-thin {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #c8a24e;
+    border-radius: 999px;
+  }
+}
+
+/* ─── Confetti Animation ─── */
+@keyframes confetti-fall {
+  0%   { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+@keyframes fade-up {
+  0%   { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0.3; }
+  50%      { opacity: 0.8; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-8px); }
+}
+
+.confetti-piece {
+  position: fixed;
+  top: -10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  animation: confetti-fall linear infinite;
+  pointer-events: none;
+  z-index: 999;
+}
