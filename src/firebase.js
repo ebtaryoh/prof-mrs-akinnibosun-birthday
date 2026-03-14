@@ -5,12 +5,14 @@ import { getFirestore } from "firebase/firestore";
 // Your web app's Firebase configuration
 // IMPORTANT: Replace this with actual Firebase config before going live!
 export const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyALV3b5Id-M02FL4iv-b0_e4RKUCx7nBo4",
+  authDomain: "pro-mrs-akinnibosun-birthday.firebaseapp.com",
+  databaseURL: "https://pro-mrs-akinnibosun-birthday-default-rtdb.firebaseio.com",
+  projectId: "pro-mrs-akinnibosun-birthday",
+  storageBucket: "pro-mrs-akinnibosun-birthday.firebasestorage.app",
+  messagingSenderId: "785305991226",
+  appId: "1:785305991226:web:e0cfd63c4433db734bdd03",
+  measurementId: "G-FB3PP90JG7"
 };
 
 export const isDummyConfig = firebaseConfig.apiKey === "YOUR_API_KEY";
