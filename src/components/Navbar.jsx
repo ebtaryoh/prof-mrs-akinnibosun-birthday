@@ -21,7 +21,7 @@ export default function Navbar() {
       >
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
           <a href="#home" className="font-serif text-xl font-semibold tracking-tight text-ink hover:text-gold transition-colors">
-            Prof. Faith <span className="text-gold italic font-light">· 52</span>
+            Prof. Faith <span className="text-gold italic font-light">· Celebration</span>
           </a>
 
           {/* Desktop */}

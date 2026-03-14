@@ -22,7 +22,7 @@ export default function App() {
         className="py-10 text-center font-sans text-xs tracking-widest"
       >
         <p className="font-serif text-white/80 italic text-xl mb-3">
-          Happy 52nd Birthday, Prof. (Mrs) Faith Akinnibosun 🎂
+          Happy Birthday, Prof. (Mrs) Faith Akinnibosun 🎂
         </p>
         <p className="uppercase tracking-[0.3em]">
           MADE WITH ❤️ · MARCH 14 · 2026 · A CELEBRATION OF LIFE

@@ -1,16 +1,23 @@
 import React, { useRef, useEffect, useState } from 'react';
 
-const imgs = import.meta.glob('../../assets/*.{jpg,jpeg,png,JPG,JPEG,PNG}', { eager: true });
-const allImgs = Object.values(imgs).map(m => m.default);
+import img1 from '../../assets/OCCASIONS/WhatsApp Image 2026-03-14 at 2.26.53 AM (3).jpeg';
+import img2 from '../../assets/OCCASIONS/WhatsApp Image 2026-03-14 at 2.26.51 AM.jpeg';
+import img3 from '../../assets/FAMILY/WhatsApp Image 2026-03-14 at 2.27.02 AM (2).jpeg';
+
+const imgs = import.meta.glob('../../assets/**/*.{jpg,jpeg,png,JPG,JPEG,PNG}', { eager: true });
+const otherImgs = Object.values(imgs).map(m => m.default).filter(src => src !== img1 && src !== img2 && src !== img3);
+const allImgs = [img1, img2, img3, ...otherImgs];
 
 const milestones = [
   {
-    year: '1972',
+    year: 'Birth',
     tag: 'THE BEGINNING',
     emoji: '🌱',
     title: 'Born Into Greatness',
-    body: 'On March 14, 1972, the Asowata family of the Ogiefa Royal Family of Benin Kingdom welcomed a daughter who would change every room she entered. Born in Uhunmwode LGA of Edo State, young Faith carried in her heart a fire that no circumstance could extinguish.',
+    body: 'On March 14, the Asowata family of the Ogiefa Royal Family of Benin Kingdom welcomed a daughter who would change every room she entered. Born in Uhunmwode LGA of Edo State, young Faith carried in her heart a fire that no circumstance could extinguish.',
     imgIdx: 0,
+    // Multiple images for auto-scroll
+    extraImages: [0, 1, 2] 
   },
   {
     year: '1977–1988',
@@ -33,7 +40,7 @@ const milestones = [
     tag: 'LEADERSHIP',
     emoji: '👑',
     title: 'Pioneer. Dean. Professor.',
-    body: 'She made history as the Pioneer Head of Department of Microbiology, Edo State University (2016), served as Acting Dean of Science (2017), and rose to the rank of Professor at UNIBEN in 2019 — a testament to decades of relentless dedication and excellence.',
+    body: '- Pioneer HOD, Dean, EUI (2016 - 2017) & HOD, UNIBEN (2022 - 2025), Recipient of the “Distinguished Alumnus Award” University of Benin Worldwide, and rose to the rank of Professor at UNIBEN in 2019 — a testament to decades of relentless dedication and excellence.',
     imgIdx: 3,
   },
   {
@@ -41,7 +48,7 @@ const milestones = [
     tag: 'A LASTING LEGACY',
     emoji: '✨',
     title: '100+ Publications & Counting',
-    body: 'A Fellow of the Linnean Society of London, "Best HOD of the Year", "Outstanding Leadership Award" recipient, and author of over 100 high-impact scientific publications. She has mentored 6 Ph.D, 84 MSc and 71 PGD graduates — and countless more whose lives she has quietly transformed.',
+    body: 'A Fellow of the Linnean Society of London, "Best HOD of the Year", "Outstanding Leadership Award" recipient, and author of over 100 high-impact scientific publications. Recipient of the "Distinguished Alumnus Award" University of Benin Worldwide. Supervised many PhD, MSc, PGD and undergraduate students.',
     imgIdx: 4,
   },
 ];
@@ -69,7 +76,25 @@ function useScrollSpy(refs, threshold = 0.5) {
 export default function Journey() {
   const refs = milestones.map(() => useRef(null));
   const active = useScrollSpy(refs);
-  const imgSrc = allImgs[milestones[active]?.imgIdx] || allImgs[active % allImgs.length] || null;
+  const [autoIdx, setAutoIdx] = useState(0);
+  
+  // Handle auto-scroll for active milestone if it has extra images
+  useEffect(() => {
+    const m = milestones[active];
+    if (m?.extraImages) {
+      const timer = setInterval(() => {
+        setAutoIdx(prev => (prev + 1) % m.extraImages.length);
+      }, 3500);
+      return () => clearInterval(timer);
+    } else {
+      setAutoIdx(0);
+    }
+  }, [active]);
+
+  const currentMilestone = milestones[active];
+  const activeImgIdx = currentMilestone?.extraImages ? currentMilestone.extraImages[autoIdx] : currentMilestone.imgIdx;
+  const imgSrc = allImgs[activeImgIdx] || allImgs[active % allImgs.length] || null;
+  
   const [prevImg, setPrevImg] = useState(imgSrc);
   const [fade, setFade] = useState(true);
 
@@ -116,12 +141,23 @@ export default function Journey() {
               >
                 {m.title}
               </h3>
+              
+              {/* Mobile Image (Visible only on mobile) */}
+              <div className="md:hidden w-full mb-6 rounded-2xl overflow-hidden shadow-lg aspect-video bg-gray-100">
+                <img 
+                  src={i === active ? imgSrc : (allImgs[m.imgIdx] || allImgs[i % allImgs.length])} 
+                  alt={m.title}
+                  className="w-full h-full object-cover transition-opacity duration-500"
+                  style={{ opacity: i === active ? (fade ? 1 : 0.8) : 1 }}
+                />
+              </div>
+
               <p className="font-sans text-ink-light text-[15px] leading-relaxed max-w-md">{m.body}</p>
             </div>
           ))}
         </div>
 
-        {/* Right: Sticky image panel */}
+        {/* Right: Sticky image panel (Desktop only) */}
         <div className="hidden md:flex md:w-1/2 relative">
           <div className="sticky top-28 self-start w-full h-[72vh] rounded-3xl overflow-hidden shadow-2xl">
             {prevImg ? (
@@ -133,7 +169,7 @@ export default function Journey() {
               />
             ) : (
               <div className="w-full h-full bg-gradient-to-br from-cream-dark to-rose-light flex items-center justify-center">
-                <span className="font-serif text-5xl text-rose/40 italic">52</span>
+                <span className="font-serif text-5xl text-rose/40 italic">Happy Birthday</span>
               </div>
             )}
             {/* Milestone counter */}

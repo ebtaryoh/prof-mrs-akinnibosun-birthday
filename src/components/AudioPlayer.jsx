@@ -10,19 +10,32 @@ export default function AudioPlayer() {
     if (ref.current) ref.current.volume = 0.45;
   }, []);
 
-  const toggle = () => {
+  const toggle = async () => {
     if (!ref.current) return;
-    if (playing) {
-      ref.current.pause();
-    } else {
-      ref.current.play().catch(() => {});
+    try {
+      if (playing) {
+        ref.current.pause();
+        setPlaying(false);
+      } else {
+        await ref.current.play();
+        setPlaying(true);
+      }
+    } catch (err) {
+      console.error("Audio playback failed:", err);
+      setPlaying(false);
     }
-    setPlaying(p => !p);
   };
 
   return (
     <div className="fixed bottom-5 right-5 z-50">
-      <audio ref={ref} src={birthdaySong} loop onPause={() => setPlaying(false)} onPlay={() => setPlaying(true)} />
+      <audio 
+        ref={ref} 
+        src={birthdaySong} 
+        loop 
+        preload="auto"
+        onPause={() => setPlaying(false)} 
+        onPlay={() => setPlaying(true)} 
+      />
 
       {/* Pill capsule — exactly like reference site */}
       <div

@@ -45,7 +45,7 @@ export default function Hero() {
     >
       <Confetti />
 
-      {/* Giant background "52" */}
+      {/* Giant background removed */}
       <div
         aria-hidden="true"
         className="absolute inset-0 flex items-center justify-center select-none pointer-events-none overflow-hidden"
@@ -58,7 +58,7 @@ export default function Hero() {
             WebkitTextStroke: '2px rgba(184, 134, 11, 0.15)',
           }}
         >
-          52
+          {/* 52 removed */}
         </span>
       </div>
 

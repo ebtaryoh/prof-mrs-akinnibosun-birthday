@@ -57,11 +57,11 @@ export default function Biography() {
 
            <div className="space-y-6 text-brand-text/80 font-sans text-lg leading-relaxed">
              <p className="first-letter:text-6xl first-letter:font-serif first-letter:text-brand-accent first-letter:mr-2 first-letter:float-left">
-                Born on March 14th, 1972, to the Ogiefa Royal Family, Professor (Mrs) Faith Iguodala Akinnibosun has always pursued excellence. From graduating as the Best Student for five consecutive years in secondary school to becoming a distinguished Professor of Environmental and Public Health Microbiology at the University of Benin.
+                Born on March 14th to the Ogiefa Royal Family, Professor (Mrs) Faith Iguodala Akinnibosun has always pursued excellence. From graduating as the Best Student for five consecutive years in secondary school to becoming a distinguished Professor of Environmental and Public Health Microbiology at the University of Benin.
              </p>
-             <p>
-                Her brilliant career includes earning her Ph.D. in collaboration with the University of Exeter (UK), delivering the 348th UNIBEN Inaugural Lecture, and serving as the Pioneer HOD at Edo State University. She is a recognized Fellow of the Linnean Society of London.
-             </p>
+              <p>
+                Her brilliant career includes earning her Ph.D. in collaboration with the University of Exeter (UK), delivering the 348th UNIBEN Inaugural Lecture, and serving as the Pioneer HOD, Dean, EUI (2016 - 2017) & HOD, UNIBEN (2022 - 2025). She is a recognized Fellow of the Linnean Society of London and Recipient of the "Distinguished Alumnus Award" University of Benin Worldwide.
+              </p>
              <div className="pt-6 border-t border-brand-accent/20">
                <p className="font-medium text-brand-text">
                   Beyond academia, she is an ordained Minister in the Redeemed Christian Church of God, a loving wife to Professor Henry Adewale Akinnibosun, and a devoted mother to four lovely children.
