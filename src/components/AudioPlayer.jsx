@@ -10,19 +10,25 @@ export default function AudioPlayer() {
     if (ref.current) ref.current.volume = 0.45;
   }, []);
 
-  const toggle = async () => {
+  const toggle = () => {
     if (!ref.current) return;
-    try {
-      if (playing) {
-        ref.current.pause();
-        setPlaying(false);
-      } else {
-        await ref.current.play();
-        setPlaying(true);
-      }
-    } catch (err) {
-      console.error("Audio playback failed:", err);
+    
+    if (playing) {
+      ref.current.pause();
       setPlaying(false);
+    } else {
+      // iOS Safari often requires play() to be called more directly or handled as a promise
+      const playPromise = ref.current.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setPlaying(true);
+          })
+          .catch(err => {
+            console.error("Playback failed:", err);
+            setPlaying(false);
+          });
+      }
     }
   };
 
@@ -33,6 +39,8 @@ export default function AudioPlayer() {
         src={birthdaySong} 
         loop 
         preload="auto"
+        playsInline
+        webkit-playsinline="true"
         onPause={() => setPlaying(false)} 
         onPlay={() => setPlaying(true)} 
       />
